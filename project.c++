@@ -41,12 +41,12 @@ struct stGameInfo {
 
 // [SECURITY & ROBUSTNESS]: Prevents the program from crashing if the user enters a character instead of a number
 void InputValidation() {
-	while (cin.fail()) {
+	if (cin.fail()) {  //Check if the previous input failed (e.g., wrong data type)
 
-		cin.clear();
-		cin.ignore(numeric_limits< streamsize >::max(), '\n');
-
+		cin.clear();  //Clear the error flags to allow future input operations
+		
 	}
+	cin.ignore(numeric_limits< streamsize >::max(), '\n'); // Discard remaining invalid characters in the buffer
 }
 
 // Returns true if the user wants to play another game, otherwise false.
@@ -105,7 +105,6 @@ enGameItem ReadPlayerChoice(const string& Message) {
 		cout << Message << endl;
 		cout << "\n===========================================================\n\n";
 		cout << "Your Choice [1 to 3] : ";
-
 		cin >> Choice;
 		// Prevents crashes from non-numeric input or data overflow
 		InputValidation();
