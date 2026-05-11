@@ -36,7 +36,7 @@ struct stGameInfo {
 	unsigned short UserWinCount = 0;
 	unsigned short ComputerWinCount = 0;
 	unsigned short DrawCount = 0;
-	enWhoWin GameWinner =::Draw;
+	enWhoWin GameWinner = ::Draw;
 };
 
 // [SECURITY & ROBUSTNESS]: Prevents the program from crashing if the user enters a character instead of a number
@@ -44,14 +44,14 @@ void InputValidation() {
 	if (cin.fail()) {  //Check if the previous input failed (e.g., wrong data type)
 
 		cin.clear();  //Clear the error flags to allow future input operations
-		
+
 	}
 	cin.ignore(numeric_limits< streamsize >::max(), '\n'); // Discard remaining invalid characters in the buffer
 }
 
 // Returns true if the user wants to play another game, otherwise false.
 bool ShouldContinue() {
-	char Response='F';
+	char Response = 'F';
 	cout << "\nDo you want to play again? (Y/N): ";
 	cin >> Response;
 	return (Response == 'y' || Response == 'Y');
@@ -65,16 +65,16 @@ void ReSetScreenColor() {
 }
 
 //Genrate Random Number By Calculate Number Of Seconds From 1970 
-short RandomNumber(short From, short To) 
+short RandomNumber(short From, short To)
 {
 	short randNum = rand() % (To - From + 1) + From; // [TYPE CHOICE]: Using 'short' instead of 'unsigned' to support 
-													 // potential negative ranges in future game updates
+	// potential negative ranges in future game updates
 	return randNum;
 }
 
 // Read total Number by send  Message  By Referance To Optimize Memory ( send address instead object )
 //const protect Message From Updat in Run time and Make temp Address
-unsigned short ReadTotalRounds(const string& Message) 
+unsigned short ReadTotalRounds(const string& Message)
 {
 	//make MAX_ROUNDS for protect Crash Data Over Flow  
 	//By less than The Number unsigned short can contain it  65535
@@ -110,8 +110,8 @@ enGameItem ReadPlayerChoice(const string& Message) {
 		InputValidation();
 
 	} while (!(Choice >= 1 && Choice <= 3));
-							
-									  // [INDEX MAPPING]: Subtracting 1 to convert user-friendly input (1-3) 
+
+	// [INDEX MAPPING]: Subtracting 1 to convert user-friendly input (1-3) 
 	return (enGameItem)(Choice - 1); // to zero-based indexing (0-2) for internal array/logic compatibility.
 }
 //We Get Computer Choice By Using function Rondom in Range(0 : 2)
@@ -124,8 +124,8 @@ enGameItem GetComputerChoice() {
 //this function more optimize this Game we store Row and Column same Order
 // and write all propabilty can happen and the diagonal Equal Draw
 //and upper Triangle The diagonal different than  Lower Triangle
-enWhoWin WhoWin(enGameItem PlayerChoice, enGameItem ComputerChoice) 
-{		
+enWhoWin WhoWin(enGameItem PlayerChoice, enGameItem ComputerChoice)
+{
 	// [MEMORY & SAFETY]: 
 	// 'const' prevents any accidental modification of the matrix during runtime.
 	// 'static' avoids the overhead of repetitive creation of winMatrix in the Stack every call
@@ -157,7 +157,7 @@ string PrintGameItem(enGameItem Choice)
 
 }
 
-string PrintWhoWin(enWhoWin Winner) 
+string PrintWhoWin(enWhoWin Winner)
 {
 	// 'const' prevents any accidental modification of the array during runtime.
 	// 'static' avoids the overhead of repetitive creation of 'winners' array in the Stack every call.
@@ -185,8 +185,8 @@ void SetScreenColor(enWhoWin Winner) {
 }
 
 void DisplayTitleRound(unsigned short CurrentRound) {
-//Updata The UI 
-	cout << "====================[" << CurrentRound << "]====================\n\n";
+	//Updata The UI 
+	cout << "============================[" << CurrentRound << "]============================\n\n";
 }
 
 void DisplayCurrentRound(unsigned short CurrentRound) {
@@ -243,7 +243,7 @@ string Tabs(unsigned short Number) {
 void DisplayTitleGameInfo() {
 
 
-	cout << Tabs(3) << "=========================================================\n\n\n";
+	cout << Tabs(3) << "===========================================================\n\n\n";
 	cout << Tabs(5) << "    +++Game Over+++\n\n";
 	cout << Tabs(3) << "===========================================================\n\n";
 
@@ -291,7 +291,7 @@ void RunGame() {
 
 		stGameInfo GameResults;
 
-		GameResults.TotalRounds = ReadTotalRounds("How many rounds do you want to play Betwenn [ 0 : 65534 ]?\n");
+		GameResults.TotalRounds = ReadTotalRounds("How many rounds do you want to play Betwenn [ 1 : 65534 ]?\n");
 
 		RunRound(GameResults);
 
