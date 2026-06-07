@@ -202,15 +202,15 @@ void DisplayRoundInfo(enGameItem UserChice, enGameItem ComputerChoice, enWhoWin 
 }
 
 void UpdateGameResults(enWhoWin Winner, stGameInfo& GameResults) {
-
+// Make pointers refer to addresses and use const to protect the pointer addresses from changing at runtime.
 	  unsigned short* const Pointer[3] =
 	{
 		&GameResults.DrawCount,
 		&GameResults.UserWinCount,
 		&GameResults.ComputerWinCount
 	};
-	(*Pointer[Winner])++;
-
+	(*Pointer[Winner])++; // Dereference the pointer first to update the actual value in memory.
+						 // The pointer address itself is protected from being changed.
 }
 
 enWhoWin WhoWinner(stGameInfo& Winner) {
