@@ -175,7 +175,7 @@ void SetScreenColor(enWhoWin Winner) {
 	// and Pointer Index 0 pointer to First Element in (color 6F)= "c" 
 	// and make Loop To Execute This Prompt To recreacheshe d\0 to stop
 	// The Benefit is Less memory usage By Object in string 
-	static const char* colors[3] = { "color 6F", "color 2F", "color 4F" };
+	static const char* const colors[3] = { "color 6F", "color 2F", "color 4F" };
 
 	system(colors[Winner]);
 
@@ -203,16 +203,13 @@ void DisplayRoundInfo(enGameItem UserChice, enGameItem ComputerChoice, enWhoWin 
 
 void UpdateGameResults(enWhoWin Winner, stGameInfo& GameResults) {
 
-	if (Winner == enWhoWin::UserWin) {
-		GameResults.UserWinCount++;
-	}
-	else if (Winner == enWhoWin::ComputerWin) {
-		GameResults.ComputerWinCount++;
-	}
-	else
+	  unsigned short* const Pointer[3] =
 	{
-		GameResults.DrawCount++;
-	}
+		&GameResults.DrawCount,
+		&GameResults.UserWinCount,
+		&GameResults.ComputerWinCount
+	};
+	(*Pointer[Winner])++;
 
 }
 
