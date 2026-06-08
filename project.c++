@@ -233,13 +233,10 @@ enWhoWin WhoWinner(stGameInfo& Winner) {
 	}
 }
 
+// Avoids manual dynamic char array allocation to save development time 
+// and eliminate the risk of memory leaks by letting string handle deallocation.
 string Tabs(unsigned short Number) {
-
-	string T = "";
-	for (int i = 0; i < Number; i++) {
-		T += "\t";
-	}
-	return T;
+    return string(Number, '\t');
 }
 
 void DisplayTitleGameInfo() {
